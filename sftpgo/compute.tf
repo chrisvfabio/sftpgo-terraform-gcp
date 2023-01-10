@@ -15,6 +15,7 @@ module "instance_template" {
   machine_type          = "f1-micro"
   region                = var.region
   service_account_email = google_service_account.default.email
+  startup_script        = file("./startup-script.sh")
 }
 
 module "mig" {

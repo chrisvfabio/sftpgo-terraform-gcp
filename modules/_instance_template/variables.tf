@@ -14,3 +14,7 @@ variable "region" {
 variable "service_account_email" {
   type = string
 }
+
+variable "startup_script" {
+  type = string
+}
