@@ -1,7 +1,7 @@
 resource "google_dns_record_set" "frontend" {
   for_each = { for k, v in var.domains : k => v }
 
-  name = each.value
+  name = "${each.value}."
   type = "A"
   ttl  = 300
 

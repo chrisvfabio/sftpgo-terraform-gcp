@@ -19,11 +19,6 @@ resource "google_compute_health_check" "default" {
   unhealthy_threshold = 2
 }
 
-data "google_compute_instance_group" "default" {
-  name = var.backend_instance_group_name
-  zone = var.backend_instance_group_zone
-}
-
 resource "google_compute_backend_service" "default" {
   name                            = "${var.name}-backend-service"
   connection_draining_timeout_sec = 0
@@ -33,8 +28,9 @@ resource "google_compute_backend_service" "default" {
   protocol                        = "HTTP"
   session_affinity                = "NONE"
   timeout_sec                     = 30
+
   backend {
-    group           = data.google_compute_instance_group.default.self_link
+    group           = var.backend_instance_group_name # data.google_compute_instance_group.default.self_link
     balancing_mode  = "UTILIZATION"
     capacity_scaler = 1.0
   }
